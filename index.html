@@ -199,6 +199,7 @@ const LAB = {
   address: ["Room 519 (PI) / Room 508 (Lab)", "Engineering Building #2", "727 Taejong-ro, Yeongdo-gu", "Busan 49112, Republic of Korea"],
   orcid: "https://orcid.org/0000-0002-0885-7012",
   scholar: "https://scholar.google.com/citations?user=CkAWOqYAAAAJ",
+  cv: "CV_JKOO.pdf?v=20261016",   // bump the date whenever the CV PDF is replaced
 };
 
 const PAGES = [
@@ -534,7 +535,7 @@ R.people = () => `
       <div class="pi-card">
         <img class="portrait" src="pi.jpg" alt="Junmo Koo" width="720" height="900">
         <div><h2 style="font-size:1.6rem">${PI.name}</h2><p class="muted">${PI.title}<br>${esc(PI.dept)}</p></div>
-        <div class="kv"><span class="mono">${LAB.email}</span><a href="${LAB.orcid}" target="_blank" rel="noopener">ORCID 0000-0002-0885-7012</a><a href="${LAB.scholar}" target="_blank" rel="noopener">Google Scholar</a></div>
+        <div class="kv"><span class="mono">${LAB.email}</span><a href="${LAB.orcid}" target="_blank" rel="noopener">ORCID 0000-0002-0885-7012</a><a href="${LAB.scholar}" target="_blank" rel="noopener">Google Scholar</a><a href="${LAB.cv}" target="_blank" rel="noopener">Curriculum Vitae (PDF)</a></div>
       </div>
       <div class="pi-body">
         <section class="block"><div class="sec-title"><h3>Education</h3></div>${kvList(PI.education,true)}</section>
