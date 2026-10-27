@@ -175,6 +175,21 @@ td.num{font-family:var(--mono);font-size:.85rem;font-variant-numeric:tabular-num
 .copyline{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .copy{font:500 .8rem/1 var(--display);padding:6px 10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:3px;cursor:pointer}
 
+/* research video */
+.video{position:relative;width:100%;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:var(--line)}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* recruiting popup */
+dialog.recruit{width:min(520px,calc(100vw - 32px));max-height:calc(100dvh - 32px);padding:0;border:0;border-radius:6px;background:var(--surface);color:var(--ink);box-shadow:0 24px 60px rgba(0,0,0,.25)}
+dialog.recruit::backdrop{background:rgba(23,18,15,.55)}
+.recruit .r-in{display:grid;gap:18px;padding:28px 28px 22px;border-top:4px solid var(--accent)}
+.recruit .r-x{position:absolute;top:12px;right:12px;width:36px;height:36px;border:0;background:none;color:var(--muted);font-size:1.5rem;line-height:1;cursor:pointer;border-radius:4px}
+.recruit .r-x:hover{background:var(--accent-soft);color:var(--ink)}
+.recruit h2{font-size:1.6rem;margin:0;outline:none}
+.recruit ul{margin:0;padding-left:1.2em;display:grid;gap:6px}
+.recruit .r-h{font:600 .78rem/1 var(--mono);letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.recruit .r-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.recruit .r-today{border:0;background:none;color:var(--muted);font:inherit;font-size:.9rem;cursor:pointer;padding:6px 0;text-decoration:underline;text-underline-offset:3px}
+.recruit .r-close{cursor:pointer}
 footer{border-top:1px solid var(--line);padding-block:28px;color:var(--muted);font-size:.85rem}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 @media (prefers-reduced-motion:no-preference){.page{animation:rise .35s ease-out both}@keyframes rise{from{transform:translateY(6px)}to{transform:none}}}
@@ -195,6 +210,25 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <main class="wrap" id="app"></main>
 
+<dialog class="recruit" id="recruit" aria-labelledby="recruit-title">
+  <button class="r-x" type="button" data-close aria-label="Close">&times;</button>
+  <div class="r-in">
+    <h2 id="recruit-title" tabindex="-1" autofocus>Join STRATA Lab</h2>
+    <p>Open to undergraduate interns and M.S./Ph.D. students.</p>
+    <div><div class="r-h">Support</div><ul>
+      <li>Graduate: tuition + stipend</li>
+      <li>Undergraduate: stipend</li>
+      <li>Performance-based incentives</li>
+    </ul></div>
+    <div><div class="r-h">Apply</div>
+      <p>Email your CV and academic transcript to <a href="mailto:jkoo@kmou.ac.kr?subject=%5BSTRATA%20Lab%5D%20Application">jkoo@kmou.ac.kr</a></p></div>
+    <div class="r-foot">
+      <button class="r-today" type="button" id="recruit-today">Don't show again today</button>
+      <button class="btn primary r-close" type="button" data-close>Close</button>
+    </div>
+  </div>
+</dialog>
+
 <footer>
   <div class="wrap">
     <span>STRATA Lab · Surface &amp; Thin-film Research for Atomically Tailored Architectures</span>
@@ -211,7 +245,8 @@ const LAB = {
   address: ["Room 519 (PI) / Room 508 (Lab)", "Engineering Building #2", "727 Taejong-ro, Yeongdo-gu", "Busan 49112, Republic of Korea"],
   orcid: "https://orcid.org/0000-0002-0885-7012",
   scholar: "https://scholar.google.com/citations?user=CkAWOqYAAAAJ",
-  cv: "CV_JKOO.pdf?v=20261016",   // bump the date whenever the CV PDF is replaced
+  cv: "CV_JKOO.pdf?v=20261016",
+  video: "nHsLjeFgZPs",   // YouTube video ID shown on the Research page   // bump the date whenever the CV PDF is replaced
 };
 
 const PAGES = [
@@ -536,6 +571,7 @@ R.research = () => `
   <div class="page">
     <div class="page-head"><span class="eyebrow">Research</span><h1>From in-house equipment to applications</h1>
     <p class="muted">We build our own deposition tools, control how films nucleate and grow cycle by cycle, and carry that control into the applications that need it.</p></div>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/${LAB.video}?rel=0" title="STRATA Lab introduction video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
     <section>${THEMES.map(t=>`<article class="rs" id="r-${t.id}" style="--c:${t.c}"><div class="side"><span class="swatch" aria-hidden="true"></span><span class="eyebrow">${t.tag}</span><h2 style="font-size:1.5rem">${esc(t.title)}</h2></div><div class="body"><p>${esc(t.body)}</p></div></article>`).join("")}</section>
   </div>`;
 
@@ -618,7 +654,7 @@ R.contact = () => `
       <p><a href="https://www.google.com/maps/search/?api=1&query=Korea+Maritime+and+Ocean+University" target="_blank" rel="noopener">Open in Google Maps</a></p>
     </section>
     <section class="block contact-item">
-      <span class="eyebrow">E-mail</span>
+      <span class="eyebrow">Email</span>
       <div class="copyline"><span class="mono">${LAB.email}</span><button class="copy" data-copy="${LAB.email}" id="copy-mail">Copy</button></div>
     </section>
   </div>`;
@@ -643,5 +679,18 @@ document.addEventListener("click", e => {
 });
 window.addEventListener("hashchange", route);
 route();
+
+/* recruiting popup: shown on each visit unless dismissed for today */
+(function(){
+  const dlg = $("#recruit"), KEY = "strata-recruit-hide";
+  const today = () => { const d = new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); };
+  let hidden = false; try { hidden = localStorage.getItem(KEY) === today(); } catch(_){}
+  if (hidden || !dlg || typeof dlg.showModal !== "function") return;
+  const close = () => dlg.close();
+  dlg.querySelectorAll("[data-close]").forEach(b => b.addEventListener("click", close));
+  $("#recruit-today").addEventListener("click", () => { try { localStorage.setItem(KEY, today()); } catch(_){} close(); });
+  dlg.addEventListener("click", e => { if (e.target === dlg) close(); });   // click on backdrop
+  setTimeout(() => dlg.showModal(), 600);
+})();
 </script>
 </body></html>
