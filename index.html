@@ -259,7 +259,7 @@ const THEMES = [
     short:"Self-limiting deposition and etching that set film thickness one cycle at a time, on wafers and on powders.",
     body:"We design atomic layer deposition (ALD) and atomic layer etching (ALE) processes on in-house thermal and plasma-enhanced reactors. By controlling nucleation, we decide whether a film grows as isolated nanoparticles or as a continuous layer.",
     chips:["Pt, Pd, Ag","ZrO₂, HfO₂, Al₂O₃","TiO₂, SnO₂, ZnO","Y₂O₃, La₂O₃, Co₃O₄","Plasma pretreatment","Particle ALD","Microfluidic particle alignment"] },
-  { id:"cvd", c:"var(--f-bl)", tag:"NON-VACUUM CVD", title:"Scalable thin-film routes",
+  { id:"cvd", c:"var(--f-bl)", tag:"NON-VACUUM PROCESSES", title:"Scalable thin-film routes",
     short:"Aerosol-assisted CVD and printing processes that work without a vacuum chamber.",
     body:"Beyond ALD, we develop cost-effective thin-film processes that need no vacuum equipment, such as aerosol-assisted chemical vapor deposition (AACVD) and inkjet printing. These routes make functional coatings practical at scale.",
     chips:["AACVD","Rare-earth oxides","CeO₂ interlayers","Inkjet printing","Protective coatings"] },
@@ -267,6 +267,10 @@ const THEMES = [
     short:"Electrochemical energy, semiconductor processing, batteries and carbon capture.",
     body:"Our primary focus is semiconductor manufacturing, where we develop atomic-scale deposition and etching processes. The same surface engineering also applies to energy devices such as fuel cells, water electrolyzers and batteries, and to heat and mass transfer control for marine direct air capture.",
     chips:["PEMFC · AEMFC · SOFC","PEM water electrolysis","Semiconductor processes","Li-metal & solid-state batteries","Direct air capture"] },
+  { id:"tea", c:"var(--f-sub)", tag:"TECHNO-ECONOMICS", title:"Techno-economics of energy systems",
+    short:"Whether a renewable or hydrogen system pays off, and what decides the answer.",
+    body:"We cost renewable and hydrogen systems the way they are actually built: a load profile, the components that meet it, and the net present cost set against a diesel or grid baseline. The capacity chosen for that baseline is usually what decides the answer. Undergraduate researchers run these studies, carrying on from the Renewable Energy and Fuel Cell courses.",
+    chips:["Techno-economic analysis","Net present cost","Load-profile sizing","Hydrogen price sensitivity","Wind–battery hybrids","Hydrogen fuel cell trams","HOMER"] },
 ];
 
 const PI = {
@@ -559,7 +563,7 @@ R.home = () => `
     </section>
     <section class="block">
       <div class="sec-title"><h2>Research areas</h2><a href="#research">All research</a></div>
-      <div class="grid g3">${THEMES.map(t=>`<a href="#research" class="theme" style="--c:${t.c};text-decoration:none;color:inherit"><span class="tag">${t.tag}</span><h3>${esc(t.title)}</h3><p>${esc(t.short)}</p></a>`).join("")}</div>
+      <div class="grid g4">${THEMES.map(t=>`<a href="#research" class="theme" style="--c:${t.c};text-decoration:none;color:inherit"><span class="tag">${t.tag}</span><h3>${esc(t.title)}</h3><p>${esc(t.short)}</p></a>`).join("")}</div>
     </section>
     <section class="block">
       <div class="sec-title"><h2>Latest news</h2><a href="#news">All news</a></div>
