@@ -324,7 +324,8 @@ const PUBS = [
  {n:1,y:2015,a:"You Kai Li†, Hyung Jong Choi†, Ho Keun Kim, Neoh Ke Chean, Manjin Kim, Junmo Koo, Heon Jae Jeong, Dong Young Jang, Joon Hyung Shim*",t:"Nanoporous silver cathodes surface-treated by atomic layer deposition of Y:ZrO₂ for high-performance low-temperature solid oxide fuel cells",j:"Journal of Power Sources",v:"295, 175–181",doi:"10.1016/j.jpowsour.2015.06.136"},
 ];
 
-const UNDER_REVIEW = [
+const UNDER_REVIEW = [   // st: status label, defaults to "Under review"
+ {n:7,a:"Young Hyun Kim, Tae Jun Kim, Junmo Koo, Jong Hyun Kim, Ho Jae Kwak*, Dong In Yu*",t:"Applicability of white-beam synchrotron radiography to water distribution measurement in operating proton exchange membrane fuel cells",st:"In preparation"},
  {n:6,a:"Dong Eun Kim, Jung Woo Shim, Sung Jong Yoo, Junmo Koo*, Joon Hyung Shim*",t:"Controllable fabrication of Pt/TiO₂ nanotube architectures using AAO-templated atomic layer deposition"},
  {n:5,a:"Beum Geun Seo, Jae Won Lee, Junmo Koo*",t:"Membrane electrode assembly design for long-endurance underwater PEMFCs: degradation priorities under pure oxygen and dead-ended operation"},
  {n:4,a:"Hyun Jin Kong, Hyung Jong Choi, Nam Il Kim, Beum Geun Seo, Doho Kim, Junmo Koo*, Kiho Bae*, Fritz B. Prinz, Joon Hyung Shim*",t:"Controllable Pt/C catalyst synthesis in sub-nanoscale via liquid sputtering for high-performance proton exchange membrane fuel cells"},
@@ -605,8 +606,8 @@ R.people = () => `
 let pubTab = "journal";
 function pubBody(){
   if (pubTab==="journal"){
-    let html = `<li style="display:block;border-top:0;padding:0"><div class="year-h">Under review</div></li>`;
-    UNDER_REVIEW.forEach(p=>{ html += `<li><span class="n">R${p.n}</span><div><div class="t">${esc(p.t)}</div><div class="a">${mark(p.a)}</div><div class="muted" style="font-size:.93rem">Under review</div></div></li>`; });
+    let html = `<li style="display:block;border-top:0;padding:0"><div class="year-h">Under review / In preparation</div></li>`;
+    UNDER_REVIEW.forEach(p=>{ html += `<li><span class="n">R${p.n}</span><div><div class="t">${esc(p.t)}</div><div class="a">${mark(p.a)}</div><div class="muted" style="font-size:.93rem">${esc(p.st ?? "Under review")}</div></div></li>`; });
     let lastY = null;
     PUBS.forEach(p=>{
       if (p.y!==lastY){ html += `<li style="display:block;border-top:0;padding:0"><div class="year-h">${p.y}</div></li>`; lastY=p.y; }
@@ -623,7 +624,7 @@ function pubBody(){
 R.publications = () => `
   <div class="page">
     <div class="page-head"><span class="eyebrow">Publications</span><h1>Papers, patents and presentations</h1>
-    <p class="muted">${PUBS.length} journal articles and ${UNDER_REVIEW.length} under review · ${PATENTS_ISSUED.length} issued patents · ${PATENTS_APPLIED.length} patent applications. Full list on <a href="${LAB.scholar}" target="_blank" rel="noopener">Google Scholar</a>.</p></div>
+    <p class="muted">${PUBS.length} journal articles and ${UNDER_REVIEW.length} under review or in preparation · ${PATENTS_ISSUED.length} issued patents · ${PATENTS_APPLIED.length} patent applications. Full list on <a href="${LAB.scholar}" target="_blank" rel="noopener">Google Scholar</a>.</p></div>
     <div class="tabs" role="tablist" id="pub-tabs">
       <button role="tab" id="tab-journal" data-t="journal" aria-selected="${pubTab==="journal"}">Journal articles</button>
       <button role="tab" id="tab-patents" data-t="patents" aria-selected="${pubTab==="patents"}">Patents</button>
